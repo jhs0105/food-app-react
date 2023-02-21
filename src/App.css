@@ -1,0 +1,39 @@
+@font-face {
+  font-family: "main";
+  src: url("./assets/font/KOTRAHOPE.woff2");
+}
+@font-face {
+  font-family: "sub";
+  src: url("./assets/font/GangwonEdu_OTFBoldA.woff");
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+ul {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding-inline-start: 0;
+}
+
+body {
+  font-family: "main", "sub";
+}
+
+input {
+  border: none;
+  outline: none;
+  font-size: inherit;
+}
+button {
+  outline: none;
+  font-size: inherit;
+}
