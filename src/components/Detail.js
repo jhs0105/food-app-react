@@ -15,9 +15,13 @@ function Detail({ seoul, ilsan }) {
   const [detail, setDetail] = useState({});
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/${place}/${id}`).then((response) => {
-      setDetail(...response.data);
-    });
+    axios
+      .get(
+        `https://port-0-food-app-server-3kzv72nlefldlg5.sel3.cloudtype.app/${place}/${id}`
+      )
+      .then((response) => {
+        setDetail(...response.data);
+      });
   }, []);
 
   const handleStateChange = (e) => {
@@ -25,11 +29,18 @@ function Detail({ seoul, ilsan }) {
   };
   const updateComment = () => {
     axios
-      .put(`http://localhost:4000/${place}/${id}`, detail)
+      .put(
+        `https://port-0-food-app-server-3kzv72nlefldlg5.sel3.cloudtype.app/${place}/${id}`,
+        detail
+      )
       .then((response) => {
-        axios.get(`http://localhost:4000/${place}/${id}`).then((response) => {
-          setDetail(...response.data);
-        });
+        axios
+          .get(
+            `https://port-0-food-app-server-3kzv72nlefldlg5.sel3.cloudtype.app/${place}/${id}`
+          )
+          .then((response) => {
+            setDetail(...response.data);
+          });
       });
   };
 
@@ -221,7 +232,7 @@ function Detail({ seoul, ilsan }) {
                   </textarea>
                 </div>
               ) : (
-                <div className="box">
+                <div className="box commentbox">
                   <span>comment:</span>
                   <p>{detail.comment}</p>
                 </div>
@@ -245,7 +256,8 @@ const Wrapper = styled.div`
     padding: 10px 0;
     align-items: center;
     h1 {
-      padding: 10px 20px;
+      font-size: 25px;
+      padding: 10px 15px;
     }
     .btn {
       button {
@@ -299,6 +311,9 @@ const Wrapper = styled.div`
           justify-content: center;
           margin-left: 10px;
         }
+      }
+      .commentbox {
+        text-align: left;
       }
       .box {
         display: flex;

@@ -9,20 +9,30 @@ function FoodList({ map, title, search }) {
   const [List, setList] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/${search}`).then((response) => {
-      setList(response.data);
-    });
+    axios
+      .get(
+        `https://port-0-food-app-server-3kzv72nlefldlg5.sel3.cloudtype.app/${search}`
+      )
+      .then((response) => {
+        setList(response.data);
+      });
   }, []);
 
   const whole = () => {
-    axios.get(`http://localhost:4000/${search}`).then((response) => {
-      setList(response.data);
-    });
+    axios
+      .get(
+        `https://port-0-food-app-server-3kzv72nlefldlg5.sel3.cloudtype.app/${search}`
+      )
+      .then((response) => {
+        setList(response.data);
+      });
   };
 
   const sub = (filter) => {
     axios
-      .get(`http://localhost:4000/place/${search}/${filter}`)
+      .get(
+        `https://port-0-food-app-server-3kzv72nlefldlg5.sel3.cloudtype.app/place/${search}/${filter}`
+      )
       .then((response) => {
         setList(response.data);
         console.log(response.data);
@@ -30,11 +40,19 @@ function FoodList({ map, title, search }) {
   };
 
   const remove = (id) => {
-    axios.delete(`http://localhost:4000/${search}/${id}`).then((response) => {
-      axios.get(`http://localhost:4000/${search}`).then((response) => {
-        setList(response.data);
+    axios
+      .delete(
+        `https://port-0-food-app-server-3kzv72nlefldlg5.sel3.cloudtype.app/${search}/${id}`
+      )
+      .then((response) => {
+        axios
+          .get(
+            `https://port-0-food-app-server-3kzv72nlefldlg5.sel3.cloudtype.app/${search}`
+          )
+          .then((response) => {
+            setList(response.data);
+          });
       });
-    });
   };
   return (
     <Wrapper>
