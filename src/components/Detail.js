@@ -6,30 +6,29 @@ import background from "../assets/images/cupcake.jpg";
 import { allplace } from "../assets/data/allplace";
 
 function Detail({ seoul, ilsan }) {
-  const [isEdit, setIsEdit] = useState(false);
   const [isCommentEdit, setIsCommentEdit] = useState(false);
+
   const locationRef = useRef();
-  const addressRef = useRef();
-  const mainFoodRef = useRef();
-  const scoreRef = useRef();
   const navigate = useNavigate();
   const { id } = useParams();
   const { place } = useParams();
-  const [detail, setDetail] = useState([]);
-  const [comment, setComment] = useState();
+  const [detail, setDetail] = useState({});
 
   useEffect(() => {
     axios.get(`http://localhost:4000/${place}/${id}`).then((response) => {
-      setDetail(response.data);
+      setDetail(...response.data);
     });
   }, []);
 
-  const updateComment = (text) => {
+  const handleStateChange = (e) => {
+    setDetail({ ...detail, [e.target.name]: e.target.value });
+  };
+  const updateComment = () => {
     axios
-      .put(`http://localhost:4000/${place}/${id}`, { comment: text })
+      .put(`http://localhost:4000/${place}/${id}`, detail)
       .then((response) => {
         axios.get(`http://localhost:4000/${place}/${id}`).then((response) => {
-          setDetail(response.data);
+          setDetail(...response.data);
         });
       });
   };
@@ -63,160 +62,174 @@ function Detail({ seoul, ilsan }) {
   };
   return (
     <Wrapper>
-      {detail.map((item, idx) => {
-        return (
-          <div key={idx}>
-            <header>
-              <div className="btn">
-                <button
-                  onClick={() => {
-                    navigate("/");
-                  }}
-                >
-                  <i className="fa-solid fa-house"></i>
-                </button>
-              </div>
-              <h1>{item.name}</h1>
-              <div className="btn">
-                <button
-                  onClick={() => {
-                    navigate(-1);
-                  }}
-                >
-                  <i className="fa-solid fa-arrow-rotate-left"></i>
-                </button>
-              </div>
-            </header>
-            <div className="detailBox">
-              <div className="imgBox">
-                <img src={item.foodImage} alt="" />
-              </div>
-              <div className="detail">
-                <div className="contents">
-                  {isEdit ? (
-                    <div className="box">
-                      <span>지역: </span>
-                      {location()}
-                    </div>
-                  ) : (
-                    <div className="box">
-                      <span>지역:</span>
-                      <p>{item.place}</p>
-                    </div>
-                  )}
-                </div>
-                <div className="contents">
-                  {isEdit ? (
-                    <div className="box">
-                      <span>주소:</span>
-                      <input
-                        type="text"
-                        name="address"
-                        ref={addressRef}
-                        placeholder="상세주소를 넣어주세요"
-                      />
-                    </div>
-                  ) : (
-                    <div className="box">
-                      <span>주소: </span>
-                      <p>{item.address}</p>
-                    </div>
-                  )}
-                </div>
-                <div className="contents">
-                  {isEdit ? (
-                    <div className="box">
-                      <span>&nbsp; 평가:</span>
-                      <select name="score" ref={scoreRef} id="">
-                        <option value="1">&#9733;</option>
-                        <option value="2">&#9733;&#9733;</option>
-                        <option value="3">&#9733;&#9733;&#9733;</option>
-                        <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
-                        <option value="5">
-                          &#9733;&#9733;&#9733;&#9733;&#9733;
+      <div>
+        <header>
+          <div className="btn">
+            <button
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              <i className="fa-solid fa-house"></i>
+            </button>
+          </div>
+          <h1>{detail.name}</h1>
+          <div className="btn">
+            <button
+              onClick={() => {
+                navigate(-1);
+              }}
+            >
+              <i className="fa-solid fa-arrow-rotate-left"></i>
+            </button>
+          </div>
+        </header>
+        <div className="detailBox">
+          <div className="imgBox">
+            <img src={detail.foodImage} alt="" />
+          </div>
+          <div className="detail">
+            <div className="contents">
+              {isCommentEdit ? (
+                <div className="box">
+                  <span>지역:</span>
+                  <select
+                    name="place"
+                    value={detail.place}
+                    onChange={handleStateChange}
+                  >
+                    {allplace[place].map((item, idx) => {
+                      return (
+                        <option value={item.district} key={idx}>
+                          {item.district}
                         </option>
-                      </select>
-                    </div>
-                  ) : (
-                    <div className="box">
-                      <span>평점:</span>
-                      <p>
-                        {Array(item.score)
-                          .fill()
-                          .map((item, idx) => {
-                            return (
-                              <span key={idx}>
-                                <i className="fa-solid fa-star"></i>
-                              </span>
-                            );
-                          })}
-                      </p>
-                    </div>
-                  )}
+                      );
+                    })}
+                  </select>
                 </div>
-                <div className="contents">
-                  {isEdit ? (
-                    <div className="box">
-                      <span>종류:</span>
-                      <input
-                        type="text"
-                        name="mainFood"
-                        ref={mainFoodRef}
-                        placeholder="메인음식은 어떤 것이 있나요?"
-                      />
-                    </div>
-                  ) : (
-                    <div className="box">
-                      <span>종류: </span>
-                      <p>{item.mainFood}</p>
-                    </div>
-                  )}
+              ) : (
+                <div className="box">
+                  <span>지역:</span>
+                  <p>{detail.place}</p>
                 </div>
-                <div className="contents">
-                  {isCommentEdit ? (
-                    <div className="box">
-                      <span>comment:</span>
-                      <textarea
-                        type="text"
-                        rows="5"
-                        placeholder="맛집에 대한 코멘트를 적어주세요 :)"
-                        onChange={(e) => {
-                          setComment(e.target.value);
-                        }}
-                      >
-                        {item.comment}
-                      </textarea>
-                    </div>
-                  ) : (
-                    <div className="box">
-                      <span>comment:</span>
-                      <p>{item.comment}</p>
-                    </div>
-                  )}
-                  {isCommentEdit ? (
-                    <button
-                      onClick={() => {
-                        updateComment(comment);
-                        setIsCommentEdit(!isCommentEdit);
-                      }}
-                    >
-                      <i class="fa-solid fa-floppy-disk"></i>
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => {
-                        setIsCommentEdit(!isCommentEdit);
-                      }}
-                    >
-                      <i class="fa-solid fa-pen-to-square"></i>
-                    </button>
-                  )}
+              )}
+              {isCommentEdit ? (
+                <button
+                  onClick={() => {
+                    updateComment();
+                    setIsCommentEdit(!isCommentEdit);
+                  }}
+                >
+                  <i class="fa-solid fa-floppy-disk"></i>
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    setIsCommentEdit(!isCommentEdit);
+                  }}
+                >
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+              )}
+            </div>
+            <div className="contents">
+              {isCommentEdit ? (
+                <div className="box">
+                  <span>주소:</span>
+                  <input
+                    type="text"
+                    name="address"
+                    value={detail.address}
+                    onChange={handleStateChange}
+                    placeholder="상세주소를 넣어주세요"
+                  />
                 </div>
-              </div>
+              ) : (
+                <div className="box">
+                  <span>주소: </span>
+                  <p>{detail.address}</p>
+                </div>
+              )}
+            </div>
+            <div className="contents">
+              {isCommentEdit ? (
+                <div className="box">
+                  <span>&nbsp; 평가:</span>
+                  <select
+                    name="score"
+                    id=""
+                    value={detail.score}
+                    onChange={handleStateChange}
+                  >
+                    <option value="1">&#9733;</option>
+                    <option value="2">&#9733;&#9733;</option>
+                    <option value="3">&#9733;&#9733;&#9733;</option>
+                    <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
+                    <option value="5">
+                      &#9733;&#9733;&#9733;&#9733;&#9733;
+                    </option>
+                  </select>
+                </div>
+              ) : (
+                <div className="box">
+                  <span>평점:</span>
+                  <p>
+                    {Array(detail.score)
+                      .fill()
+                      .map((item, idx) => {
+                        return (
+                          <span key={idx}>
+                            <i className="fa-solid fa-star"></i>
+                          </span>
+                        );
+                      })}
+                  </p>
+                </div>
+              )}
+            </div>
+            <div className="contents">
+              {isCommentEdit ? (
+                <div className="box">
+                  <span>종류:</span>
+                  <input
+                    type="text"
+                    name="mainFood"
+                    placeholder="메인음식은 어떤 것이 있나요?"
+                    onChange={handleStateChange}
+                    value={detail.mainFood}
+                  />
+                </div>
+              ) : (
+                <div className="box">
+                  <span>종류: </span>
+                  <p>{detail.mainFood}</p>
+                </div>
+              )}
+            </div>
+            <div className="contents">
+              {isCommentEdit ? (
+                <div className="box">
+                  <span>comment:</span>
+                  <textarea
+                    name="comment"
+                    type="text"
+                    rows="5"
+                    placeholder="맛집에 대한 코멘트를 적어주세요 :)"
+                    onChange={handleStateChange}
+                  >
+                    {detail.comment}
+                  </textarea>
+                </div>
+              ) : (
+                <div className="box">
+                  <span>comment:</span>
+                  <p>{detail.comment}</p>
+                </div>
+              )}
             </div>
           </div>
-        );
-      })}
+        </div>
+      </div>
       <div
         className="background"
         style={{ backgroundImage: `url(${background})` }}

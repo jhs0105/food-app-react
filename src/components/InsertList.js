@@ -29,6 +29,7 @@ function InsertList({ map, search }) {
         "content-type": "multipart/form-data",
       },
     };
+
     axios
       .post(
         `http://localhost:4000/insert${search}`,
@@ -68,8 +69,6 @@ function InsertList({ map, search }) {
       <form
         onSubmit={() => {
           if (nameRef.current.value === "" || file.length === 0) {
-            nameRef.current.focus();
-            file.current.focus();
             return;
           } else {
             submitList();

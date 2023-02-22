@@ -82,49 +82,51 @@ function FoodList({ map, title, search }) {
       </ul>
 
       <ul className="itemList">
-        {List.map((item, idx) => {
-          return (
-            <li className={`item ${item.place}`} key={idx}>
-              <div className="imagebox">
-                <img src={item.foodImage} alt="" />
-              </div>
-              <div
-                className="contents"
-                onClick={() => {
-                  navigate(`/detail/${search}/${item._id}`);
-                }}
-              >
-                <h3>{item.name}</h3>
-                <div className="address">
-                  {item.place} {item.address}
+        {List.slice(0)
+          .reverse()
+          .map((item, idx) => {
+            return (
+              <li className={`item ${item.place}`} key={idx}>
+                <div className="imagebox">
+                  <img src={item.foodImage} alt="" />
                 </div>
-                <div className="score">
-                  <p>
-                    {Array(item.score)
-                      .fill()
-                      .map((item, idx) => {
-                        return (
-                          <span key={idx}>
-                            <i className="fa-solid fa-star"></i>
-                          </span>
-                        );
-                      })}
-                  </p>
-                </div>
-              </div>
-              <div className="removebtn">
-                <button
-                  onClick={(e) => {
-                    console.log(item._id);
-                    remove(item._id);
+                <div
+                  className="contents"
+                  onClick={() => {
+                    navigate(`/detail/${search}/${item._id}`);
                   }}
                 >
-                  <i class="fa-solid fa-trash-can"></i>
-                </button>
-              </div>
-            </li>
-          );
-        })}
+                  <h3>{item.name}</h3>
+                  <div className="address">
+                    {item.place} {item.address}
+                  </div>
+                  <div className="score">
+                    <p>
+                      {Array(item.score)
+                        .fill()
+                        .map((item, idx) => {
+                          return (
+                            <span key={idx}>
+                              <i className="fa-solid fa-star"></i>
+                            </span>
+                          );
+                        })}
+                    </p>
+                  </div>
+                </div>
+                <div className="removebtn">
+                  <button
+                    onClick={(e) => {
+                      console.log(item._id);
+                      remove(item._id);
+                    }}
+                  >
+                    <i class="fa-solid fa-trash-can"></i>
+                  </button>
+                </div>
+              </li>
+            );
+          })}
       </ul>
       <div
         className="background"
@@ -202,8 +204,8 @@ const Wrapper = styled.div`
       background-color: rgba(255, 255, 255, 0.7);
       position: relative;
       .imagebox {
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
         img {
           width: 100%;
           height: 100%;
@@ -212,7 +214,7 @@ const Wrapper = styled.div`
         }
       }
       .contents {
-        width: calc(100% - 115px);
+        width: calc(100% - 95px);
         font-family: "sub";
         h3 {
           margin: 5px 0;
@@ -221,7 +223,7 @@ const Wrapper = styled.div`
         .score {
           margin: 3px 0;
           i {
-            font-size: 15px;
+            font-size: 13px;
           }
         }
       }
