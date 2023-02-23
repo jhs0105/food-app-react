@@ -11,7 +11,7 @@ function FoodList({ map, title, search }) {
   useEffect(() => {
     axios
       .get(
-        `https://port-0-food-app-server-3kzv72nlefldlg5.sel3.cloudtype.app/${search}`
+        `https://port-0-food-app-server-4uvg2mlegvqqv1.sel3.cloudtype.app/${search}`
       )
       .then((response) => {
         setList(response.data);
@@ -21,7 +21,7 @@ function FoodList({ map, title, search }) {
   const whole = () => {
     axios
       .get(
-        `https://port-0-food-app-server-3kzv72nlefldlg5.sel3.cloudtype.app/${search}`
+        `https://port-0-food-app-server-4uvg2mlegvqqv1.sel3.cloudtype.app/${search}`
       )
       .then((response) => {
         setList(response.data);
@@ -31,7 +31,7 @@ function FoodList({ map, title, search }) {
   const sub = (filter) => {
     axios
       .get(
-        `https://port-0-food-app-server-3kzv72nlefldlg5.sel3.cloudtype.app/place/${search}/${filter}`
+        `https://port-0-food-app-server-4uvg2mlegvqqv1.sel3.cloudtype.app/place/${search}/${filter}`
       )
       .then((response) => {
         setList(response.data);
@@ -42,12 +42,12 @@ function FoodList({ map, title, search }) {
   const remove = (id) => {
     axios
       .delete(
-        `https://port-0-food-app-server-3kzv72nlefldlg5.sel3.cloudtype.app/${search}/${id}`
+        `https://port-0-food-app-server-4uvg2mlegvqqv1.sel3.cloudtype.app/${search}/${id}`
       )
       .then((response) => {
         axios
           .get(
-            `https://port-0-food-app-server-3kzv72nlefldlg5.sel3.cloudtype.app/${search}`
+            `https://port-0-food-app-server-4uvg2mlegvqqv1.sel3.cloudtype.app/${search}`
           )
           .then((response) => {
             setList(response.data);
