@@ -42,6 +42,8 @@ const Wrapper = styled.div`
     img {
       width: 100%;
       height: 100%;
+      max-width: 800px;
+      max-height: 800px;
       left: 0;
       top: 0;
       opacity: 0.5;

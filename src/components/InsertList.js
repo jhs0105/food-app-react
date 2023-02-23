@@ -205,7 +205,7 @@ const Wrapper = styled.div`
   align-items: center;
   .background {
     position: absolute;
-    opacity: 0.7;
+    opacity: 0.6;
     top: 0;
     width: 100%;
     z-index: -1;
@@ -236,6 +236,12 @@ const Wrapper = styled.div`
     flex-direction: column;
     width: 95%;
     margin-top: 10px;
+    margin-bottom: 20px;
+    max-width: 900px;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 20px 10px;
+    box-sizing: border-box;
+    border-radius: 20px;
     .box {
       display: flex;
       align-items: center;

@@ -197,7 +197,7 @@ const Wrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin: 0 10px 10px;
+    max-width: 800px;
     li {
       padding: 3px 10px;
       background-color: rgba(255, 192, 203, 0.5);
@@ -209,6 +209,7 @@ const Wrapper = styled.div`
     width: 95%;
     box-sizing: border-box;
     padding: 0 0 20px 0;
+    max-width: 900px;
     > li {
       cursor: pointer;
       display: flex;

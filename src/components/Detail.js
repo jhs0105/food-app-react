@@ -250,11 +250,21 @@ function Detail({ seoul, ilsan }) {
 }
 
 const Wrapper = styled.div`
+  position: relative;
+  .background {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: -1;
+    background-size: 50%;
+    opacity: 0.7;
+  }
   header {
     display: flex;
     justify-content: center;
-    padding: 10px 0;
     align-items: center;
+    padding: 10px 0;
     h1 {
       font-size: 25px;
       padding: 10px 15px;
@@ -278,11 +288,14 @@ const Wrapper = styled.div`
     align-items: center;
     .imgBox {
       width: 95%;
+      max-width: 900px;
+      max-height: 450px;
+      overflow: hidden;
+      border-radius: 10px;
       img {
         width: 100%;
         aspect-ratio: 1.3;
         object-fit: cover;
-        border-radius: 10px;
       }
     }
     .detail {
@@ -292,6 +305,7 @@ const Wrapper = styled.div`
       border-radius: 10px;
       border: 3px solid pink;
       width: 95%;
+      max-width: 900px;
       box-sizing: border-box;
       background-color: #fff;
       display: flex;
@@ -345,15 +359,7 @@ const Wrapper = styled.div`
       }
     }
   }
-  .background {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    z-index: -1;
-    background-size: 50%;
-    opacity: 0.7;
-  }
+
   input {
     border: 2px solid purple;
     padding: 5px;
