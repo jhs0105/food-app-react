@@ -1,0 +1,18 @@
+export const paju = [
+  { district: "문산읍" },
+  { district: "조리읍" },
+  { district: "법원읍" },
+  { district: "파주읍" },
+  { district: "광탄면" },
+  { district: "탄현면" },
+  { district: "월롱면" },
+  { district: "적성면" },
+  { district: "파평면" },
+  { district: "군내면" },
+  { district: "장단면" },
+  { district: "진동면" },
+  { district: "진서면" },
+  { district: "교하동" },
+  { district: "운정동" },
+  { district: "금천동" },
+];

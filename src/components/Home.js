@@ -6,20 +6,13 @@ import { Link } from "react-router-dom";
 function Home() {
   return (
     <Wrapper>
-      <div className="title">
+      <Link to="/zone" className="title">
         <h1>나만의 맛집 리스트!</h1>
-        <ul className="btns">
-          <li>
-            <Link to="/seoul">서울</Link>
-          </li>
-          <li>
-            <Link to="/ilsan">일산</Link>
-          </li>
-        </ul>
-      </div>
-      <div className="imgbox">
+        <p>구경하러 하기!</p>
+      </Link>
+      <Link to="/zone" className="imgbox">
         <img src={background} alt="" />
-      </div>
+      </Link>
     </Wrapper>
   );
 }
@@ -32,42 +25,40 @@ const Wrapper = styled.div`
   height: 100vh;
   width: 100vw;
   position: relative;
-  background: pink;
+  background: #84cfcb;
+
   .imgbox {
     position: absolute;
     z-index: 0;
     border: 1px solid #ccc;
     border-radius: 100%;
     overflow: hidden;
+    background-color: #f6e6e7;
+    margin: 20px;
     img {
       width: 100%;
-      height: 100%;
       max-width: 800px;
       max-height: 800px;
-      left: 0;
-      top: 0;
       opacity: 0.5;
-      object-fit: contain;
+      object-fit: cover;
+      vertical-align: bottom;
     }
   }
   .title {
+    background-color: rgba(242, 247, 251, 0.5);
+    width: 85%;
+    max-width: 700px;
+    aspect-ratio: 1;
     display: flex;
+    justify-content: center;
     position: absolute;
     z-index: 2;
     flex-direction: column;
     align-items: center;
-    .btns {
-      display: flex;
-      li {
-        a {
-          display: block;
-          margin: 0 10px;
-          border: 1px solid #ccc;
-          background: #ddd;
-          padding: 5px 15px;
-          border-radius: 5px;
-        }
-      }
+    border-radius: 100%;
+    font-size: 18px;
+    p {
+      font-size: 20px;
     }
   }
 `;

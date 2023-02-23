@@ -4,8 +4,10 @@ import Home from "./components/Home";
 import FoodList from "./components/FoodList";
 import InsertList from "./components/InsertList";
 import Save from "./components/Save";
+import Zone from "./components/Zone";
 import { seoul } from "../src/assets/data/seoul.js";
 import { ilsan } from "./assets/data/ilsan";
+import { paju } from "./assets/data/paju";
 import Detail from "./components/Detail";
 
 function App() {
@@ -14,6 +16,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<Home></Home>}></Route>
+          <Route path="/zone" element={<Zone></Zone>}></Route>
           <Route
             path="/seoul"
             element={
@@ -22,6 +25,12 @@ function App() {
           ></Route>
           <Route
             path="/ilsan"
+            element={
+              <FoodList map={ilsan} title={"일산"} search={"ilsan"}></FoodList>
+            }
+          ></Route>
+          <Route
+            path="/paju"
             element={
               <FoodList map={ilsan} title={"일산"} search={"ilsan"}></FoodList>
             }

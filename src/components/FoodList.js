@@ -2,11 +2,17 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import pattern from "../assets/images/cupcake.jpg";
+import { Navigation } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
 
 function FoodList({ map, title, search }) {
   const navigate = useNavigate();
   const [List, setList] = useState([]);
+  const ellipsis = (str, total) => {
+    return str.length > total ? str.substr(0, total - 1) + "..." : str;
+  };
 
   useEffect(() => {
     axios
@@ -57,17 +63,15 @@ function FoodList({ map, title, search }) {
   return (
     <Wrapper>
       <header>
+        <h2>{title} 맛집 리스트 :)</h2>
         <div className="btn">
           <button
             onClick={() => {
-              navigate("/");
+              navigate("/zone");
             }}
           >
-            <i className="fa-solid fa-house"></i>
+            <i className="fa-solid fa-grip"></i>
           </button>
-        </div>
-        <h1>{title} 맛집 리스트 :)</h1>
-        <div className="btn">
           <button
             onClick={() => {
               navigate(`/insert${search}`);
@@ -77,79 +81,89 @@ function FoodList({ map, title, search }) {
           </button>
         </div>
       </header>
-      <ul className="placeName">
-        {map.map((item, idx) => {
-          return (
-            <li
-              key={idx}
-              onClick={(e) => {
-                sub(e.target.innerText);
-              }}
-            >
-              {item.district}
-            </li>
-          );
-        })}
-        <li
-          onClick={() => {
-            whole();
-          }}
-        >
-          전체보기
-        </li>
-      </ul>
-
-      <ul className="itemList">
-        {List.slice(0)
-          .reverse()
-          .map((item, idx) => {
-            return (
-              <li className={`item ${item.place}`} key={idx}>
-                <div className="imagebox">
-                  <img src={item.foodImage} alt="" />
-                </div>
-                <div
-                  className="contents"
-                  onClick={() => {
-                    navigate(`/detail/${search}/${item._id}`);
+      <div className="bodypart">
+        <div className="slidebox">
+          <div
+            className="all"
+            onClick={() => {
+              whole();
+            }}
+          >
+            전체보기
+          </div>
+          <Swiper
+            className="placeName"
+            slidesPerView={"auto"}
+            slidesPerGroup={1}
+            loop={true}
+            modules={[Navigation]}
+            navigation={{ nextEl: ".next" }}
+          >
+            {map.map((item, idx) => {
+              return (
+                <SwiperSlide
+                  key={idx}
+                  onClick={(e) => {
+                    sub(e.target.innerText);
                   }}
                 >
-                  <h3>{item.name}</h3>
-                  <div className="address">
-                    {item.place} {item.address}
+                  {item.district}
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+          <div className="next">
+            <i className="fa-solid fa-chevron-right"></i>
+          </div>
+        </div>
+        <ul className="itemList">
+          {List.slice(0)
+            .reverse()
+            .map((item, idx) => {
+              return (
+                <li className={`item ${item.place}`} key={idx}>
+                  <div
+                    className="imagebox"
+                    onClick={() => navigate(`/detail/${search}/${item._id}`)}
+                  >
+                    <img src={item.foodImage} alt="" />
                   </div>
-                  <div className="score">
-                    <p>
-                      {Array(item.score)
-                        .fill()
-                        .map((item, idx) => {
-                          return (
-                            <span key={idx}>
-                              <i className="fa-solid fa-star"></i>
-                            </span>
-                          );
-                        })}
-                    </p>
-                  </div>
-                </div>
-                <div className="removebtn">
-                  <button
-                    onClick={(e) => {
-                      console.log(item._id);
-                      remove(item._id);
+                  <div
+                    className="contents"
+                    onClick={() => {
+                      navigate(`/detail/${search}/${item._id}`);
                     }}
                   >
-                    <i class="fa-solid fa-trash-can"></i>
-                  </button>
-                </div>
-              </li>
-            );
-          })}
-      </ul>
-      <div
-        className="background"
-        style={{ backgroundImage: `url(${pattern})` }}
-      ></div>
+                    <h3>{ellipsis(item.name, 7)}</h3>
+                    <div className="score">
+                      <p>
+                        {Array(item.score)
+                          .fill()
+                          .map((item, idx) => {
+                            return (
+                              <span key={idx}>
+                                <i className="fa-solid fa-star"></i>
+                              </span>
+                            );
+                          })}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="removebtn">
+                    <button
+                      onClick={(e) => {
+                        console.log(item._id);
+                        remove(item._id);
+                      }}
+                    >
+                      <i className="fa-solid fa-trash-can"></i>
+                    </button>
+                  </div>
+                </li>
+              );
+            })}
+        </ul>
+      </div>
     </Wrapper>
   );
 }
@@ -160,103 +174,120 @@ const Wrapper = styled.div`
   align-items: center;
   position: relative;
   min-height: 100vh;
-  .background {
-    position: absolute;
-    opacity: 0.5;
-    z-index: -1;
-    width: 100%;
-    top: 0;
-    bottom: 0;
-    background-size: 50%;
-  }
+
   header {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     width: 100%;
-    margin: 10px 0;
-    h1 {
-      padding: 0 30px;
-    }
+    box-sizing: border-box;
+    height: 80px;
+    padding: 0 20px;
     .btn {
       button {
         border: none;
         width: 40px;
         height: 40px;
-        background-color: pink;
+        background-color: #ffed90;
         border-radius: 100%;
+        margin-left: 10px;
       }
     }
   }
-  .placeName {
-    cursor: pointer;
-    font-family: "sub";
+  .bodypart {
     width: 100%;
-    box-sizing: border-box;
-    font-size: 15px;
+    height: 100%;
+    min-height: calc(100vh - 140px);
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    max-width: 800px;
-    li {
-      padding: 3px 10px;
-      background-color: rgba(255, 192, 203, 0.5);
-      margin: 5px;
-      border-radius: 6px;
+    flex-direction: column;
+    align-items: center;
+    background-color: #84cfcb;
+    padding: 30px 0;
+    border-radius: 30px 0 0 0;
+  }
+  .slidebox {
+    font-family: "sub";
+    width: 92%;
+    display: flex;
+    cursor: pointer;
+    justify-content: space-between;
+    padding: 0px 0 10px;
+    .all {
+      width: 70px;
+      font-size: 20px;
+      font-family: "main";
+      margin-top: -4px;
+    }
+    .next {
+      width: 20px;
+      text-align: right;
+    }
+    .placeName {
+      font-family: "sub";
+      width: calc(100% - 90px);
+      box-sizing: border-box;
+      font-size: 15px;
+      display: flex;
+      justify-content: center;
+      .swiper-slide {
+        width: 58px;
+        display: flex;
+        justify-content: center;
+      }
     }
   }
+
   .itemList {
     width: 95%;
     box-sizing: border-box;
-    padding: 0 0 20px 0;
     max-width: 900px;
+    display: flex;
+    flex-wrap: wrap;
     > li {
       cursor: pointer;
       display: flex;
-      justify-content: space-between;
-      width: 100%;
+      flex-direction: column;
+      width: calc(33.333% - 8px);
       box-sizing: border-box;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 40px;
-      border: 4px solid pink;
+      margin: 10px 4px 4px;
       background-color: rgba(255, 255, 255, 0.7);
       position: relative;
+      border-radius: 20px;
       .imagebox {
-        width: 80px;
-        height: 80px;
+        vertical-align: bottom;
+        border-radius: 20px 20px 0 0;
+        overflow: hidden;
         img {
           width: 100%;
-          height: 100%;
+          aspect-ratio: 1.2;
           object-fit: cover;
-          border-radius: 25px 0 0 25px;
         }
       }
       .contents {
-        width: calc(100% - 95px);
+        padding: 5px 5px 5px;
         font-family: "sub";
         h3 {
-          margin: 5px 0;
-          font-size: 24px;
+          margin: 0;
+          font-size: 16px;
         }
         .score {
-          margin: 3px 0;
+          margin-top: -5px;
+          margin-bottom: 5px;
           i {
-            font-size: 13px;
+            font-size: 10px;
           }
         }
       }
       .removebtn {
         position: absolute;
-        right: 20px;
-        bottom: 10px;
+        right: 5px;
+        bottom: 5px;
         button {
           border: none;
-          background-color: #ddd;
-          width: 30px;
-          height: 30px;
+          background-color: #fff;
+          width: 25px;
+          height: 25px;
           border-radius: 100px;
-          box-shadow: 2px 2px 3px #333;
         }
       }
     }

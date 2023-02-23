@@ -75,17 +75,15 @@ function Detail({ seoul, ilsan }) {
     <Wrapper>
       <div>
         <header>
+          <h1>{detail.name}</h1>
           <div className="btn">
             <button
               onClick={() => {
-                navigate("/");
+                navigate("/zone");
               }}
             >
-              <i className="fa-solid fa-house"></i>
+              <i className="fa-solid fa-grip"></i>
             </button>
-          </div>
-          <h1>{detail.name}</h1>
-          <div className="btn">
             <button
               onClick={() => {
                 navigate(-1);
@@ -130,8 +128,9 @@ function Detail({ seoul, ilsan }) {
                     updateComment();
                     setIsCommentEdit(!isCommentEdit);
                   }}
+                  style={{ backgroundColor: "#ffed90" }}
                 >
-                  <i class="fa-solid fa-floppy-disk"></i>
+                  <i className="fa-solid fa-floppy-disk"></i>
                 </button>
               ) : (
                 <button
@@ -241,10 +240,6 @@ function Detail({ seoul, ilsan }) {
           </div>
         </div>
       </div>
-      <div
-        className="background"
-        style={{ backgroundImage: `url(${background})` }}
-      ></div>
     </Wrapper>
   );
 }
@@ -261,26 +256,29 @@ const Wrapper = styled.div`
     opacity: 0.7;
   }
   header {
+    height: 80px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
-    h1 {
-      font-size: 25px;
-      padding: 10px 15px;
-    }
+    padding: 0 20px;
     .btn {
       button {
         border: none;
         width: 40px;
         height: 40px;
-        background-color: pink;
+        background-color: #ffed90;
         border-radius: 100%;
+        margin-left: 10px;
       }
     }
   }
   .detailBox {
+    background-color: #84cfcb;
+    border-radius: 30px 0 0 0;
+    padding: 30px 0 20px;
     width: 100%;
+    height: 100%;
+    min-height: calc(100vh - 80px);
     box-sizing: border-box;
     text-align: center;
     display: flex;
@@ -290,20 +288,24 @@ const Wrapper = styled.div`
       width: 95%;
       max-width: 900px;
       max-height: 450px;
+      border: 4px solid #f6e6e7;
+      border-bottom: none;
+      border-radius: 30px 30px 0 0;
+      box-sizing: border-box;
       overflow: hidden;
-      border-radius: 10px;
       img {
         width: 100%;
+        vertical-align: bottom;
         aspect-ratio: 1.3;
         object-fit: cover;
       }
     }
     .detail {
-      margin-top: 10px;
       margin-bottom: 10px;
       padding: 10px;
-      border-radius: 10px;
-      border: 3px solid pink;
+      border-radius: 0 0 30px 30px;
+      border: 4px solid #ffed90;
+      border-top: none;
       width: 95%;
       max-width: 900px;
       box-sizing: border-box;
@@ -317,7 +319,7 @@ const Wrapper = styled.div`
         button {
           width: 32px;
           height: 30px;
-          background-color: pink;
+          background-color: #f6e6e7;
           border-radius: 5px;
           border: none;
           display: flex;
@@ -338,7 +340,7 @@ const Wrapper = styled.div`
           font-family: "sub";
           display: flex;
           width: 100%;
-          background-color: #eee;
+          background-color: #f2f7fb;
           border-radius: 5px;
           padding: 5px;
           line-height: 1.25;
@@ -361,7 +363,7 @@ const Wrapper = styled.div`
   }
 
   input {
-    border: 2px solid purple;
+    border: 2px solid #ffed90;
     padding: 5px;
     border-radius: 5px;
     font-family: "sub";
@@ -371,12 +373,12 @@ const Wrapper = styled.div`
     width: 100%;
     padding: 5px;
     border-radius: 5px;
-    border: 2px solid purple;
+    border: 2px solid #ffed90;
   }
   textarea {
     padding: 5px;
     border-radius: 5px;
-    border: 2px solid purple;
+    border: 2px solid #ffed90;
     font-family: "sub";
     font-size: inherit;
     width: 100%;
