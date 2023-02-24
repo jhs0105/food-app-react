@@ -11,13 +11,18 @@ function Map() {
   const { place } = useParams();
   const [address, setAddress] = useState();
   const [phone, setPhone] = useState();
+  const value = process.env.REACT_APP_NAME;
+  const kakaoKey = process.env.REACT_APP_KAKAO_KEY;
+  console.log(value);
+  console.log(kakaoKey);
+
   useEffect(() => {
     axios
       .get(
         `https://dapi.kakao.com/v2/local/search/keyword.json?query=${name}`,
         {
           headers: {
-            Authorization: "KakaoAK cc7a9b2c03cb9485f1c322879e061e58",
+            Authorization: kakaoKey,
           },
         }
       )
