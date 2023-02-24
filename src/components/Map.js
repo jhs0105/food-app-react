@@ -13,8 +13,6 @@ function Map() {
   const [phone, setPhone] = useState();
   const value = process.env.REACT_APP_NAME;
   const kakaoKey = process.env.REACT_APP_KAKAO_KEY;
-  console.log(value);
-  console.log(kakaoKey);
 
   useEffect(() => {
     axios
