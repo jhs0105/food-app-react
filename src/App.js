@@ -5,6 +5,7 @@ import FoodList from "./components/FoodList";
 import InsertList from "./components/InsertList";
 import Save from "./components/Save";
 import Zone from "./components/Zone";
+import Map from "./components/Map";
 import { seoul } from "../src/assets/data/seoul.js";
 import { ilsan } from "./assets/data/ilsan";
 import { paju } from "./assets/data/paju";
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home></Home>}></Route>
           <Route path="/zone" element={<Zone></Zone>}></Route>
+          <Route path="/map/:place/:name" element={<Map></Map>}></Route>
           <Route
             path="/seoul"
             element={

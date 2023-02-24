@@ -15,30 +15,20 @@ function FoodList({ map, title, search }) {
   };
 
   useEffect(() => {
-    axios
-      .get(
-        `https://port-0-food-app-server-4uvg2mlegvqqv1.sel3.cloudtype.app/${search}`
-      )
-      .then((response) => {
-        setList(response.data);
-      });
+    axios.get(`http://localhost:4000/${search}`).then((response) => {
+      setList(response.data);
+    });
   }, []);
 
   const whole = () => {
-    axios
-      .get(
-        `https://port-0-food-app-server-4uvg2mlegvqqv1.sel3.cloudtype.app/${search}`
-      )
-      .then((response) => {
-        setList(response.data);
-      });
+    axios.get(`http://localhost:4000/${search}`).then((response) => {
+      setList(response.data);
+    });
   };
 
   const sub = (filter) => {
     axios
-      .get(
-        `https://port-0-food-app-server-4uvg2mlegvqqv1.sel3.cloudtype.app/place/${search}/${filter}`
-      )
+      .get(`http://localhost:4000/place/${search}/${filter}`)
       .then((response) => {
         setList(response.data);
         console.log(response.data);
@@ -46,19 +36,11 @@ function FoodList({ map, title, search }) {
   };
 
   const remove = (id) => {
-    axios
-      .delete(
-        `https://port-0-food-app-server-4uvg2mlegvqqv1.sel3.cloudtype.app/${search}/${id}`
-      )
-      .then((response) => {
-        axios
-          .get(
-            `https://port-0-food-app-server-4uvg2mlegvqqv1.sel3.cloudtype.app/${search}`
-          )
-          .then((response) => {
-            setList(response.data);
-          });
+    axios.delete(`http://localhost:4000/${search}/${id}`).then((response) => {
+      axios.get(`http://localhost:4000/${search}`).then((response) => {
+        setList(response.data);
       });
+    });
   };
   return (
     <Wrapper>
@@ -152,7 +134,6 @@ function FoodList({ map, title, search }) {
                   <div className="removebtn">
                     <button
                       onClick={(e) => {
-                        console.log(item._id);
                         remove(item._id);
                       }}
                     >
@@ -174,7 +155,8 @@ const Wrapper = styled.div`
   align-items: center;
   position: relative;
   min-height: 100vh;
-
+  max-width: 1000px;
+  margin: auto;
   header {
     display: flex;
     align-items: center;
@@ -256,6 +238,7 @@ const Wrapper = styled.div`
       background-color: rgba(255, 255, 255, 0.7);
       position: relative;
       border-radius: 20px;
+      border: 1.6px solid #f6e6e7;
       .imagebox {
         vertical-align: bottom;
         border-radius: 20px 20px 0 0;
@@ -275,7 +258,7 @@ const Wrapper = styled.div`
         }
         .score {
           margin-top: -2px;
-          margin-bottom: 2px;
+          margin-bottom: 3px;
           i {
             font-size: 10px;
           }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
@@ -8,20 +8,15 @@ import { allplace } from "../assets/data/allplace";
 function Detail({ seoul, ilsan }) {
   const [isCommentEdit, setIsCommentEdit] = useState(false);
 
-  const locationRef = useRef();
   const navigate = useNavigate();
   const { id } = useParams();
   const { place } = useParams();
   const [detail, setDetail] = useState({});
 
   useEffect(() => {
-    axios
-      .get(
-        `https://port-0-food-app-server-4uvg2mlegvqqv1.sel3.cloudtype.app/${place}/${id}`
-      )
-      .then((response) => {
-        setDetail(...response.data);
-      });
+    axios.get(`http://localhost:4000/${place}/${id}`).then((response) => {
+      setDetail(...response.data);
+    });
   }, []);
 
   const handleStateChange = (e) => {
@@ -29,48 +24,14 @@ function Detail({ seoul, ilsan }) {
   };
   const updateComment = () => {
     axios
-      .put(
-        `https://port-0-food-app-server-4uvg2mlegvqqv1.sel3.cloudtype.app/${place}/${id}`,
-        detail
-      )
+      .put(`http://localhost:4000/${place}/${id}`, detail)
       .then((response) => {
-        axios
-          .get(
-            `https://port-0-food-app-server-4uvg2mlegvqqv1.sel3.cloudtype.app/${place}/${id}`
-          )
-          .then((response) => {
-            setDetail(...response.data);
-          });
+        axios.get(`http://localhost:4000/${place}/${id}`).then((response) => {
+          setDetail(...response.data);
+        });
       });
   };
 
-  const location = () => {
-    if (String(place) === "seoul") {
-      return (
-        <select name="place" id="" ref={locationRef}>
-          {allplace.seoul.map((item, idx) => {
-            return (
-              <option value={item.district} key={idx}>
-                {item.district}
-              </option>
-            );
-          })}
-        </select>
-      );
-    } else if (String(place) === "ilsan") {
-      return (
-        <select name="place" id="" ref={locationRef}>
-          {allplace.ilsan.map((item, idx) => {
-            return (
-              <option value={item.district} key={idx}>
-                {item.district}
-              </option>
-            );
-          })}
-        </select>
-      );
-    }
-  };
   return (
     <Wrapper>
       <div>
@@ -83,6 +44,13 @@ function Detail({ seoul, ilsan }) {
               }}
             >
               <i className="fa-solid fa-grip"></i>
+            </button>
+            <button
+              onClick={() => {
+                navigate(`/map/${detail.place}/${detail.name}`);
+              }}
+            >
+              <i className="fa-solid fa-location-dot"></i>
             </button>
             <button
               onClick={() => {
@@ -138,7 +106,7 @@ function Detail({ seoul, ilsan }) {
                     setIsCommentEdit(!isCommentEdit);
                   }}
                 >
-                  <i class="fa-solid fa-pen-to-square"></i>
+                  <i className="fa-solid fa-pen-to-square"></i>
                 </button>
               )}
             </div>
@@ -226,9 +194,8 @@ function Detail({ seoul, ilsan }) {
                     rows="5"
                     placeholder="맛집에 대한 코멘트를 적어주세요 :)"
                     onChange={handleStateChange}
-                  >
-                    {detail.comment}
-                  </textarea>
+                    value={detail.comment}
+                  ></textarea>
                 </div>
               ) : (
                 <div className="box commentbox">
@@ -246,15 +213,8 @@ function Detail({ seoul, ilsan }) {
 
 const Wrapper = styled.div`
   position: relative;
-  .background {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    z-index: -1;
-    background-size: 50%;
-    opacity: 0.7;
-  }
+  max-width: 1000px;
+  margin: auto;
   header {
     height: 80px;
     display: flex;

@@ -42,7 +42,7 @@ function InsertList({ map, search }) {
     };
     axios
       .post(
-        `https://port-0-food-app-server-4uvg2mlegvqqv1.sel3.cloudtype.app/insert${search}`,
+        `http://localhost:4000/insert${search}`,
         { name, place, address, score, mainFood, foodImage, comment },
         config
       )
