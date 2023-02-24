@@ -58,7 +58,7 @@ function Detail({ seoul, ilsan }) {
             </button>
             <button
               onClick={() => {
-                navigate(`/map/${detail.place}/${detail.name}`);
+                navigate(`/map/${place}/${detail.name}`);
               }}
             >
               <i className="fa-solid fa-location-dot"></i>

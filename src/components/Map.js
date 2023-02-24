@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
@@ -8,6 +8,7 @@ const { kakao } = window;
 function Map() {
   const navigate = useNavigate();
   const { name } = useParams();
+  const { place } = useParams();
   const [address, setAddress] = useState();
   const [phone, setPhone] = useState();
   useEffect(() => {
@@ -66,10 +67,10 @@ function Map() {
         <div className="btn">
           <button
             onClick={() => {
-              navigate("/zone");
+              navigate(`/${place}`);
             }}
           >
-            <i className="fa-solid fa-grip"></i>
+            <i className="fa-solid fa-list"></i>
           </button>
           <button
             onClick={() => {
@@ -86,9 +87,20 @@ function Map() {
           <p>
             <span>주소:</span> {address}
           </p>
-          <p>
-            <span>전화:</span> {phone}
-          </p>
+          {phone && (
+            <p>
+              <span>전화:</span> {phone}
+            </p>
+          )}
+          {phone && (
+            <button
+              onClick={() => {
+                document.location.href = `tel:${phone}`;
+              }}
+            >
+              <i className="fa-solid fa-phone"></i>
+            </button>
+          )}
         </div>
       </div>
     </Wrapper>
@@ -143,20 +155,33 @@ const Wrapper = styled.div`
       background-color: #fff;
       border: 4px solid #ffed90;
       border-top: none;
-      padding: 20px 10px 10px;
+      padding: 20px 10px 15px;
       box-sizing: border-box;
+      max-width: 800px;
+      position: relative;
       p {
         display: flex;
         font-family: "sub";
-        line-height: 1.3;
         font-size: 17px;
         align-items: center;
+        line-height: 1.3;
       }
       span {
         width: 50px;
-        display: block;
+        display: flex;
+        align-items: center;
         font-size: 18px;
         font-weight: bolder;
+      }
+      button {
+        border: none;
+        position: absolute;
+        right: 10px;
+        bottom: 20px;
+        width: 35px;
+        height: 35px;
+        border-radius: 5px;
+        background-color: #f6e6e7;
       }
     }
   }
