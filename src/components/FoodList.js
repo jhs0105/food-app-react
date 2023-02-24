@@ -112,9 +112,9 @@ function FoodList({ map, title, search }) {
               );
             })}
           </Swiper>
-          <div className="next">
+          <button className="next">
             <i className="fa-solid fa-chevron-right"></i>
-          </div>
+          </button>
         </div>
         <ul className="itemList">
           {List.slice(0)
@@ -211,6 +211,7 @@ const Wrapper = styled.div`
     display: flex;
     cursor: pointer;
     justify-content: space-between;
+    align-items: center;
     padding: 0px 0 10px;
     .all {
       width: 70px;
@@ -219,6 +220,8 @@ const Wrapper = styled.div`
       margin-top: -4px;
     }
     .next {
+      border: none;
+      background: none;
       width: 20px;
       text-align: right;
     }
@@ -247,9 +250,9 @@ const Wrapper = styled.div`
       cursor: pointer;
       display: flex;
       flex-direction: column;
-      width: calc(33.333% - 8px);
+      width: calc(33.333% - 10px);
       box-sizing: border-box;
-      margin: 10px 4px 4px;
+      margin: 10px 5px 4px;
       background-color: rgba(255, 255, 255, 0.7);
       position: relative;
       border-radius: 20px;
@@ -268,11 +271,11 @@ const Wrapper = styled.div`
         font-family: "sub";
         h3 {
           margin: 0;
-          font-size: 16px;
+          font-size: 15px;
         }
         .score {
-          margin-top: -5px;
-          margin-bottom: 5px;
+          margin-top: -2px;
+          margin-bottom: 2px;
           i {
             font-size: 10px;
           }

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import imageCompression from "browser-image-compression";
 
 function InsertList({ map, search }) {
   const navigate = useNavigate();
@@ -158,9 +159,22 @@ function InsertList({ map, search }) {
               type="file"
               value={state.foodImage}
               name="foodImage"
-              onChange={(e) => {
-                setFile(e.target.files[0]);
-                if (e.target.files[0] !== "") {
+              onChange={async (e) => {
+                let imagefile = e.target.files[0];
+                const options = {
+                  maxSizeMB: 1,
+                  maxWidthOrHeight: 800,
+                };
+                try {
+                  const compressedFile = await imageCompression(
+                    imagefile,
+                    options
+                  );
+                  setFile(compressedFile);
+                } catch (err) {
+                  console.log(err);
+                }
+                if (imagefile !== "") {
                   e.target.style.borderColor = "#f6e6e7";
                 }
               }}
@@ -271,6 +285,7 @@ const Wrapper = styled.div`
       width: 100%;
       margin-bottom: 10px;
       padding: 5px;
+      background-color: #fff;
       border-radius: 5px;
       border: 2px solid #f6e6e7;
       margin-left: -3px;
