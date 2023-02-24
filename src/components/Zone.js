@@ -16,7 +16,7 @@ function Zone() {
               navigate("/seoul");
             }}
           >
-            <i class="fa-solid fa-utensils"></i>
+            <i className="fa-solid fa-utensils"></i>
             서울
           </li>
           <li
@@ -24,7 +24,7 @@ function Zone() {
               navigate("/ilsan");
             }}
           >
-            <i class="fa-solid fa-utensils"></i>
+            <i className="fa-solid fa-utensils"></i>
             일산
           </li>
           <li
@@ -32,7 +32,7 @@ function Zone() {
               navigate("/ilsan");
             }}
           >
-            <i class="fa-solid fa-utensils"></i>
+            <i className="fa-solid fa-utensils"></i>
             제주도
           </li>
           <li
@@ -40,7 +40,7 @@ function Zone() {
               navigate("/paju");
             }}
           >
-            <i class="fa-solid fa-utensils"></i>
+            <i className="fa-solid fa-utensils"></i>
             파주
           </li>
         </ul>
