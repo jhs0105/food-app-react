@@ -14,9 +14,13 @@ function Detail({ seoul, ilsan }) {
   const [detail, setDetail] = useState({});
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/${place}/${id}`).then((response) => {
-      setDetail(...response.data);
-    });
+    axios
+      .get(
+        `https://port-0-food-app-server-4uvg2mlegvqqv1.sel3.cloudtype.app/${place}/${id}`
+      )
+      .then((response) => {
+        setDetail(...response.data);
+      });
   }, []);
 
   const handleStateChange = (e) => {
@@ -24,11 +28,18 @@ function Detail({ seoul, ilsan }) {
   };
   const updateComment = () => {
     axios
-      .put(`http://localhost:4000/${place}/${id}`, detail)
+      .put(
+        `https://port-0-food-app-server-4uvg2mlegvqqv1.sel3.cloudtype.app/${place}/${id}`,
+        detail
+      )
       .then((response) => {
-        axios.get(`http://localhost:4000/${place}/${id}`).then((response) => {
-          setDetail(...response.data);
-        });
+        axios
+          .get(
+            `https://port-0-food-app-server-4uvg2mlegvqqv1.sel3.cloudtype.app/${place}/${id}`
+          )
+          .then((response) => {
+            setDetail(...response.data);
+          });
       });
   };
 
