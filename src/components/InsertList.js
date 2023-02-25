@@ -48,13 +48,11 @@ function InsertList({ map, search }) {
       )
       .then((response) => {
         console.log(response);
+        window.alert("저장되었습니다");
         setIsUpdate(!isUpdate);
       })
       .catch((err) => {
         console.log(err);
-      })
-      .finally((res) => {
-        window.alert("저장되었습니다");
       });
 
     setState({
