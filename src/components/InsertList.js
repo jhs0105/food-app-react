@@ -16,7 +16,7 @@ function InsertList({ map, search }) {
     mainFood: "",
     comment: "",
   });
-  console.log(state.place);
+  //console.log(state.place);
   const handleStateChange = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
@@ -47,7 +47,7 @@ function InsertList({ map, search }) {
         config
       )
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         window.alert("저장되었습니다");
         setIsUpdate(!isUpdate);
       })
@@ -165,6 +165,7 @@ function InsertList({ map, search }) {
                 const options = {
                   maxSizeMB: 1,
                   maxWidthOrHeight: 800,
+                  useWebWorker: true,
                 };
                 try {
                   const compressedFile = await imageCompression(
