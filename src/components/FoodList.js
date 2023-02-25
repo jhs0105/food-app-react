@@ -152,7 +152,9 @@ function FoodList({ map, title, search }) {
                   <div className="removebtn">
                     <button
                       onClick={(e) => {
-                        remove(item._id);
+                        if (window.confirm("삭제하시겠습니까?")) {
+                          remove(item._id);
+                        }
                       }}
                     >
                       <i className="fa-solid fa-trash-can"></i>

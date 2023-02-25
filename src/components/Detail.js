@@ -267,7 +267,7 @@ const Wrapper = styled.div`
       img {
         width: 100%;
         vertical-align: bottom;
-        aspect-ratio: 1.3;
+        aspect-ratio: 1;
         object-fit: cover;
       }
     }
