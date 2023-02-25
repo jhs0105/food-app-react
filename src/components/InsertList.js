@@ -52,6 +52,9 @@ function InsertList({ map, search }) {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally((res) => {
+        window.alert("저장되었습니다");
       });
 
     setState({
