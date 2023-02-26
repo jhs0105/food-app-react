@@ -67,6 +67,13 @@ function FoodList({ map, title, search }) {
         <div className="btn">
           <button
             onClick={() => {
+              navigate("/");
+            }}
+          >
+            <i className="fa-solid fa-house"></i>
+          </button>
+          <button
+            onClick={() => {
               navigate("/zone");
             }}
           >

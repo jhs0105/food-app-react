@@ -31,8 +31,10 @@ function InsertList({ map, search }) {
     const foodImage = file;
     const comment = state.comment;
     if (state.name === "") {
+      window.alert("이름을 알려주세요");
       return;
     } else if (file === undefined) {
+      window.alert("사진을 넣어주세요");
       return;
     }
     const config = {
@@ -52,6 +54,7 @@ function InsertList({ map, search }) {
         setIsUpdate(!isUpdate);
       })
       .catch((err) => {
+        window.alert("저장에 실패했습니다.");
         console.log(err);
       });
 
