@@ -47,7 +47,7 @@ function Detail({ seoul, ilsan }) {
     <Wrapper>
       <div>
         <header>
-          <h1>{detail.name}</h1>
+          <h2>{detail.name}</h2>
           <div className="btn">
             <button
               onClick={() => {

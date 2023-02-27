@@ -167,7 +167,6 @@ function InsertList({ map, search }) {
                 let imagefile = e.target.files[0];
                 const options = {
                   maxSizeMB: 1,
-                  maxWidthOrHeight: 800,
                   useWebWorker: true,
                 };
                 try {
